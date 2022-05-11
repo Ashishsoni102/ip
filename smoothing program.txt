@@ -1,0 +1,28 @@
+clc ;
+close ;
+a= imread( 'D:\flower.jpg' );
+subplot(2,3,1)
+title('Original image');
+imshow(a)
+b= imresize(a ,[256 ,256]) ;
+b= imnoise (b,'salt & pepper',0.1);
+subplot(2,3,2)
+title('noise image');
+imshow(b)
+[m n]= size (b);
+R=b(: ,: ,1);
+G=b(: ,: ,2);
+B=b(: ,: ,3);
+exec('D:\Func.sci')
+Out_R = Func_medianall(R,N); 
+Out_G = Func_medianall(G,N); 
+Out_B = Func_medianall(B,N); 
+
+Out_Image (: ,: ,1)= Out_R ;
+Out_Image (: ,: ,2)= Out_G ;
+Out_Image (: ,: ,3)= Out_B ;
+b = uint8 (b);
+Out_Image = uint8(Out_Image);
+subplot(2,3,3)
+title( '3x3 median filtered' )
+imshow(Out_Image)
